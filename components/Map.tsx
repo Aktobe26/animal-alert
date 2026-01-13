@@ -2,9 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { supabase } from '@/lib/supabase';
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
+
 
 /* ================= TYPES ================= */
 
@@ -44,22 +45,31 @@ export default function Map({ lat, lng }: Props) {
 
   /* ================= MAP INIT ================= */
 
-  useEffect(() => {
-    if (!mapRef.current || map.current) return;
+useEffect(() => {
+  if (!mapRef.current || map.current) return;
 
-    map.current = new mapboxgl.Map({
-      container: mapRef.current,
-      style: 'mapbox://styles/mapbox/dark-v11',
-      center: [lng, lat],
-      zoom: 16,
-    });
+  // ✅ ВАЖНО: токен ТОЛЬКО ЗДЕСЬ
+  mapboxgl.accessToken =
+    process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string;
 
-    new mapboxgl.Marker({ color: '#22d3ee' })
-      .setLngLat([lng, lat])
-      .addTo(map.current);
+  if (!mapboxgl.accessToken) {
+    console.error('❌ MAPBOX TOKEN NOT FOUND');
+    return;
+  }
 
-    loadAnimals();
-  }, [lat, lng]);
+  map.current = new mapboxgl.Map({
+    container: mapRef.current,
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [lng, lat],
+    zoom: 16,
+  });
+
+  new mapboxgl.Marker({ color: '#22d3ee' })
+    .setLngLat([lng, lat])
+    .addTo(map.current);
+
+  loadAnimals();
+}, [lat, lng]);
 
   /* ================= LOAD WITH TTL ================= */
 
