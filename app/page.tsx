@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-
-type Animal = 'cow' | 'horse' | 'camel';
-
 const Map = dynamic(() => import('@/components/Map'), {
   ssr: false,
 });
+
+type Animal = 'cow' | 'horse' | 'camel';
+
 
 
 
