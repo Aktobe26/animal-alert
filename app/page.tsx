@@ -1,9 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Map from '@/components/Map';
+import dynamic from 'next/dynamic';
+
 
 type Animal = 'cow' | 'horse' | 'camel';
+
+const Map = dynamic(() => import('@/components/Map'), {
+  ssr: false,
+});
+
+
 
 export default function Home() {
   const [pos, setPos] = useState<{ lat: number; lng: number } | null>(null);
