@@ -1,10 +1,10 @@
-const isDev = process.env.NODE_ENV === "development";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
 
-const withPWA = require("next-pwa")({
-  dest: "public",
-  disable: isDev, // 🔥 ВОТ ЭТО РЕШАЕТ ЦИКЛ
-});
+  experimental: {
+    turbo: false, // ⛔ отключаем Turbopack
+  },
+};
 
-module.exports = withPWA({
-  reactStrictMode: false,
-});
+module.exports = nextConfig;
