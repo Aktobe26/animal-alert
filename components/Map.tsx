@@ -23,7 +23,7 @@ type AnimalRow = {
 
 /* ================= CONFIG ================= */
 
-const TTL_MS = 60 * 60 * 1000; // 60 минут
+const TTL_MS = 30 * 60 * 1000; // 30 минут
 
 const ICONS: Record<Animal, string> = {
   cow: '/icons/cow.png',
